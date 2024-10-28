@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Projects</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        .project {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f3f3f3;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+        }
+
+        .project video {
+            cursor: pointer;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project video:hover {
+            transform: scale(1.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+
+        .modal-content video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: white;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #999;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .back-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 20px auto;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Our Projects</h1>
+        <div id="projects"></div>
+        <center><button class="back-button" onclick="history.back()">Back</button></center>
+    </div>
+
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <video class="modal-content" id="modalVideo" controls></video>
+    </div>
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var projectsDiv = document.getElementById("projects");
+
+            var projects = [
+                {
+                    title: "श्री Ram Interior",
+                    video: "shriraminterior.mp4",
+                    description: "The Shriram Interior Renovation Project epitomized a meticulous fusion of creativity and functionality, tailored to the client's unique preferences. Through collaborative design sessions and careful space planning, the project transformed the residential property into a harmonious sanctuary, seamlessly blending aesthetic appeal with practicality. From the strategic selection of materials and finishes to the thoughtful placement of lighting fixtures, every aspect was meticulously curated to enhance the living experience. Overcoming challenges with adept problem-solving, the project culminated in a breathtaking transformation, delighting the client with a revitalized interior reflective of their distinct style and vision.",
+                    
+                },
+
+                {
+                    title: "TriUnity Web Solutions",
+                    video: "triunity.mp4",
+                    description:"We recently engaged with TriUnity Web Solutions for our project,and we couldn't be more pleased with the experience. From the initial consultation to the final delivery, every step was marked by professionalism, expertise, and a genuine commitment to our project's success. One of the standout aspects of working with TriUnity was their exceptional communication. They took the time to understand our needs, listened attentively to our ideas, and provided valuable insights every step of the way. Their responsiveness and clarity ensured that we were always on the same page, fostering a collaborative and productive environment.",
+                    
+                },
+                
+            ];
+
+            projects.forEach(function(project) {
+                var projectDiv = document.createElement("div");
+                projectDiv.classList.add("project");
+
+                var video = document.createElement("video");
+                video.src = project.video;
+                video.controls = true;
+                video.addEventListener('click', function() {
+                    document.getElementById('myModal').style.display = "block";
+                    document.getElementById("modalVideo").src = this.src;
+                });
+
+                var projectDetails = document.createElement("div");
+
+                var title = document.createElement("h2");
+                title.textContent = project.title;
+                title.style.color = "#007bff";
+                title.style.fontWeight = "bold";
+                title.style.marginBottom = "10px";
+
+                var description = document.createElement("p");
+                description.textContent = project.description;
+                description.style.lineHeight = "1.6";
+
+                projectDetails.appendChild(title);
+                projectDetails.appendChild(description);
+
+                projectDiv.appendChild(video);
+                projectDiv.appendChild(projectDetails);
+
+                projectsDiv.appendChild(projectDiv);
+            });
+
+            // Get the modal
+            var modal = document.getElementById('myModal');
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>
